@@ -35,6 +35,8 @@
 	"vscjava.vscode-java-test",
 	"vscjava.vscode-java-dependency",
 	"GitHub.vscode-pull-request-github",
-	"cschleiden.vscode-github-actions"
+	"cschleiden.vscode-github-actions",
+	"mathiasfrohlich.Kotlin",
+	"redhat.vscode-apache-camel"
 ]
 }
