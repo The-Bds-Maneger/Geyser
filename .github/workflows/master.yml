@@ -1,0 +1,65 @@
+name: Build Geyser
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v3.0.2
+        with:
+          submodules: true
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      # - name: Archive artifacts (Geyser Standalone)
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Geyser Standalone
+      #     path: bootstrap/standalone/build/libs/Geyser-Standalone.jar
+
+      # - name: Archive artifacts (Geyser Spigot)
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Geyser Spigot
+      #     path: bootstrap/spigot/build/libs/Geyser-Spigot.jar
+
+      # - name: Archive artifacts (Geyser BungeeCord)
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Geyser BungeeCord
+      #     path: bootstrap/bungeecord/build/libs/Geyser-BungeeCord.jar
+
+      # - name: Archive artifacts (Geyser Sponge)
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Geyser Sponge
+      #     path: bootstrap/sponge/build/libs/Geyser-Sponge.jar
+
+      # - name: Archive artifacts (Geyser Velocity)
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Geyser Velocity
+      #     path: bootstrap/velocity/build/libs/Geyser-Velocity.jar
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "bootstrap/**/build/libs/*.jar"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

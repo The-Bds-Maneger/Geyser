@@ -1,0 +1,40 @@
+{
+  "name": "GeyserMC",
+  "updateRemoteUserUID": false,
+  "containerUser": "geyserdev",
+  "remoteUser": "geyserdev",
+  "overrideCommand": false,
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USERNAME": "geyserdev",
+      "USER_UID": "1000"
+    }
+  },
+  "runArgs": [
+    "--init",
+    "--privileged"
+  ],
+  "mounts": [
+    "target=/var/lib/docker,type=volume,source=geyserdevdocker"
+  ],
+	"settings": {
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "files.eol": "\n",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true
+  },
+  "extensions": [
+	"VisualStudioExptTeam.vscodeintellicode",
+	"vscjava.vscode-java-debug",
+	"redhat.java",
+	"vscjava.vscode-maven",
+	"vscjava.vscode-gradle",
+	"naco-siren.gradle-language",
+	"vscjava.vscode-java-test",
+	"vscjava.vscode-java-dependency",
+	"GitHub.vscode-pull-request-github",
+	"cschleiden.vscode-github-actions"
+]
+}
