@@ -629,6 +629,12 @@ public class GeyserSession implements GeyserConnection, GeyserCommandSource {
         creativePacket.setContents(this.itemMappings.getCreativeItems());
         upstream.sendPacket(creativePacket);
 
+        // Potion mixes are registered by default, as they are needed to be able to put ingredients into the brewing stand.
+        CraftingDataPacket craftingDataPacket = new CraftingDataPacket();
+        craftingDataPacket.setCleanRecipes(true);
+        craftingDataPacket.getPotionMixData().addAll(Registries.POTION_MIXES.get());
+        upstream.sendPacket(craftingDataPacket);
+
         PlayStatusPacket playStatusPacket = new PlayStatusPacket();
         playStatusPacket.setStatus(PlayStatusPacket.Status.PLAYER_SPAWN);
         upstream.sendPacket(playStatusPacket);
@@ -1420,7 +1426,7 @@ public class GeyserSession implements GeyserConnection, GeyserCommandSource {
         startGamePacket.setRotation(Vector2f.from(1, 1));
 
         startGamePacket.setSeed(-1L);
-        startGamePacket.setDimensionId(DimensionUtils.javaToBedrock(dimension));
+        startGamePacket.setDimensionId(DimensionUtils.javaToBedrock(chunkCache.getBedrockDimension()));
         startGamePacket.setGeneratorId(1);
         startGamePacket.setLevelGameType(GameType.SURVIVAL);
         startGamePacket.setDifficulty(1);
